@@ -1,0 +1,20 @@
+---
+- name: test k8s create pod
+  hosts:
+    - localhost
+  vars:
+    ansible_task: test
+  tasks:
+    - name: create pod
+      k8s:
+        state: present
+        definition:
+          apiVersion: kolesa-team.org/v1alpha1
+          kind: TestOperator
+          metadata:
+            name: awx-task-for-{{ ansible_task }}
+            namespace: debug1
+          spec:
+            test: "generic/test-k8s-oper"
+            size: 1
+            role_id: "67d286a5-2eb8-2bc3-c966-00483f623c5b"
